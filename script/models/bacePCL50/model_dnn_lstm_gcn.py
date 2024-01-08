@@ -75,11 +75,23 @@ class model_biGRU(nn.Module):
         self.n_output = args['n_output']
         self.ep_gru = nn.GRU(self.num_features, self.hidden_dim_lstm, 2, batch_first=True, bidirectional=True)
         self.dropout = nn.Dropout()
-        self.fc = nn.Linear(self.hidden_dim_lstm*2, self.n_output)
+        self.fc = nn.Linear(self.output_dim, self.n_output)
+        self.num_attention_heads = 2
+        self.ep_attention_layers = nn.ModuleList([nn.Sequential(
+            nn.Linear(2 * self.hidden_dim_lstm, self.hidden_dim_lstm),
+            nn.Tanh(),
+            nn.Linear(self.hidden_dim_lstm, self.output_dim)
+        ) for _ in range(self.num_attention_heads)])
+        self.ep_fc_layers = nn.ModuleList([nn.Linear(self.hidden_dim_lstm * 2, self.output_dim) for _ in range(self.num_attention_heads)])
     
     def forward(self, ecfp):
         ep_out, _ = self.ep_gru(ecfp)
-        ep_out = self.dropout(ep_out)
+        ep_attended_out = 0
+        for i in range(self.num_attention_heads):
+            ep_attention_weights = torch.softmax(self.ep_attention_layers[i](ep_gru), dim=1)
+            ep_linear = self.ep_fc_layers[i](ep_gru)
+            ep_attended_out += ep_attention_weights * ep_linear
+        ep_attended_out /= self.num_attention_heads
         out = self.fc(ep_out)
         out = out.view(1, -1)
         return out
@@ -96,10 +108,10 @@ class modelDnn(nn.Module):
     
         
         self.fc1 = nn.Linear(self.num_features, self.output_dim)
-        # Ìí¼Ó¾í»ı²ã
+        # æ·»åŠ å·ç§¯å±‚
         self.conv1 = nn.Conv1d(in_channels=self.num_features, out_channels=self.output_dim, kernel_size=1)
         
-        self.fc2 = nn.Linear(self.output_dim, self.output_dim)  # ÊÊÓ¦¾í»ıÊä³öµÄÎ¬¶È
+        self.fc2 = nn.Linear(self.output_dim, self.output_dim)  # é€‚åº”å·ç§¯è¾“å‡ºçš„ç»´åº¦
         self.dropout = nn.Dropout(self.dropout)
         self.fc3 = nn.Linear(self.output_dim, 1)
     
@@ -108,7 +120,7 @@ class modelDnn(nn.Module):
         # fc1_out = F.relu(fc1_out)  
         
  
-        ecfp = ecfp.view(ecfp.size(0), -1, 1)  # Îª¾í»ı²ãÔö¼ÓÒ»Î¬
+        ecfp = ecfp.view(ecfp.size(0), -1, 1)  # ä¸ºå·ç§¯å±‚å¢åŠ ä¸€ç»´
         ecfp = self.conv1(ecfp)
         # ecfp = F.relu(ecfp)
         # ecfp = F.max_pool1d(ecfp, kernel_size=1)  
