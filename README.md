@@ -53,23 +53,23 @@ github address: https://github.com/AIMedDrug/MMFDL.git
 **2 Google colab's .ipynb file address for testing**
 
 (1) Data processing
-MMFDL_geneInput.ipynb: https://colab.research.google.com/drive/1hLjDxffFA0SN_bZaWzul2TW-zhkoJDov?usp=sharing
+MMFDL_geneInput.ipynb: https://colab.research.google.com/github/AIMedDrug/MMFDL/blob/main/notebook/MMFDL_geneInput.ipynb
 
 (2) Training model using unimodal and multimodal deep learning model
 (2.1) Transformer model
-MMFDL_singleTrans.ipynb: https://colab.research.google.com/drive/1JLzGPrSqOUKUYl9B2PkqhsussCtx4OvL?usp=sharing
+MMFDL_singleTrans.ipynb: https://colab.research.google.com/github/AIMedDrug/MMFDL/blob/main/notebook/MMFDL_singleTrans.ipynb
 
 (2.2) BiGRU
-MMFDL_singleBiGRU.ipynb: https://colab.research.google.com/drive/1JLzGPrSqOUKUYl9B2PkqhsussCtx4OvL?usp=sharing
+MMFDL_singleBiGRU.ipynb: https://colab.research.google.com/github/AIMedDrug/MMFDL/blob/main/notebook/MMFDL_singleBiGRU.ipynb
 
 (2.3) GCN
-MMFDL_singleGCN.ipynb: https://colab.research.google.com/drive/1RgNsyJ5PgmQtoa93nDkK5BT0luyCcgef?usp=sharing
+MMFDL_singleGCN.ipynb: https://colab.research.google.com/github/AIMedDrug/MMFDL/blob/main/notebook/MMFDL_singleGCN.ipynb
 
 (2.4) MMFDL
-MMFDL_ML.ipynb: https://colab.research.google.com/drive/1QQIeOwU9jeuTmIyppQ5IvPYqOcHBarWp?usp=sharing
+MMFDL_ML.ipynb: https://colab.research.google.com/github/AIMedDrug/MMFDL/blob/main/notebook/MMFDL_ML.ipynb
 
 (2.5) MMFDL
-MMFDL_SGD.ipynb: https://colab.research.google.com/drive/1phj6l-JViYmFBsPQ23I7o4T5JB9bH3ab?usp=sharing
+MMFDL_SGD.ipynb: https://colab.research.google.com/github/AIMedDrug/MMFDL/blob/main/notebook/MMFDL_SGD.ipynb
 
 
 
